@@ -1,0 +1,47 @@
+<%= turbo_frame_tag dom_id(ticker) do %>
+  <%= form_with(model: ticker, class: '') do |f| %>
+    <div class="space-y-8 divide-y divide-gray-200">
+      <% unless ticker.errors.empty? %>
+        <div aria-live="assertive" class="fixed inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 sm:items-start">
+          <div class="w-full flex flex-col items-center space-y-4 sm:items-end">
+            <div class="max-w-sm w-full bg-white shadow-lg bg-red-300 rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden">
+              <div class="p-4">
+                <div class="flex items-start">
+                  <div class="ml-3 w-0 flex-1 pt-0.5">
+                    <p class="text-sm font-medium text-gray-900"><%= ticker.errors.messages.values.first[0] %></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <div>
+        <div class="mt-2 grid grid-cols-1 gap-y- gap-x-4 sm:grid-cols-9 items-center">
+          <div class="sm:col-span-3">
+            <label for="first-name" class="block text-sm font-medium text-gray-700">Currency</label>
+            <div class="mt-1">
+                <%= f.select :currency,
+                            [['BTC','BTC'], ['ETH','ETH'], ['BCH','BCH'],['XRP','XRP'],['EOS','EOS']],
+                            {}, { :class => 'mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md' } %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <label for="last-name" class="block text-sm font-medium text-gray-700">Fiat</label>
+            <div class="mt-1">
+                <%= f.select :fiat,
+                            [['USD','USD'], ['GBP','GBP'], ['ZAR','ZAR'],['EUR','EUR']],
+                            {}, { :class => 'mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md' } %>
+            </div>
+          </div>
+           <div class="sm:col-span-3 mt-4">
+            <div class="flex justify-end">
+              <%= f.submit 'Add ticker', class: 'mt-2 cursor-pointer ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
